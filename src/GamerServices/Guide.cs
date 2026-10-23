@@ -367,6 +367,11 @@ namespace Microsoft.Xna.Framework.GamerServices
 			}
 		}
 
-		#endregion
-	}
+        public static void ShowMarketplace(PlayerIndex cindex)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+    }
 }
