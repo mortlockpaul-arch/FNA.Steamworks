@@ -59,70 +59,122 @@ namespace Microsoft.Xna.Framework.GamerServices
 
 		public static void Initialize(IServiceProvider serviceProvider)
 		{
-			IsInitialized = SteamAPI.Init();
+            try
+            {
+                IsInitialized = SteamAPI.Init();
 
-			if (!IsInitialized)
-			{
-				throw new GamerServicesNotAvailableException(
-					"Steam is not running, please restart Steam!"
-				);
-			}
+                if (!IsInitialized)
+                {
+                    Console.WriteLine(
+                        "Steam is unavailable. Continuing without Steam services."
+                    );
+                }
+            }
+            catch (DllNotFoundException ex)
+            {
+                IsInitialized = false;
+                Console.WriteLine($"Steamworks DLL unavailable: {ex.Message}");
+            }
+            catch (BadImageFormatException ex)
+            {
+                IsInitialized = false;
+                Console.WriteLine($"Steamworks architecture mismatch: {ex.Message}");
+            }
+            catch (EntryPointNotFoundException ex)
+            {
+                IsInitialized = false;
+                Console.WriteLine($"Steamworks entry point unavailable: {ex.Message}");
+            }
 
-			AppDomain.CurrentDomain.ProcessExit += (o, e) =>
+            // [OBS] (half life scientist) everything..  seems to be in order
+
+            AppDomain.CurrentDomain.ProcessExit += (o, e) =>
 			{
-				SteamAPI.Shutdown();
-				IsInitialized = false;
-			};
+                if (IsInitialized)
+                {
+                    SteamAPI.Shutdown();
+                    IsInitialized = false;
+                }
+            };
 
 			overlayActivated = Callback<GameOverlayActivated_t>.Create(Guide.OnOverlayActivated);
 			textInputDismissed = Callback<GamepadTextInputDismissed_t>.Create(Guide.OnTextInputDismissed);
 			lobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(Net.NetworkSession.OnInviteAccepted);
 
-			SteamUserStats.RequestCurrentStats();
+            if (IsInitialized)
+            {
+                SteamUserStats.RequestCurrentStats();
+            }
+            else
+            {
+                Console.WriteLine(
+                    "Steamworks unavailable. Skipping Steam user statistics."
+                );
+            }
+            List<SignedInGamer> startGamers = new List<SignedInGamer>(4);
 
-			List<SignedInGamer> startGamers = new List<SignedInGamer>(1);
-			startGamers.Add(new SignedInGamer(
-				SteamUser.GetSteamID(),
-				SteamFriends.GetPersonaName(),
-				IsInitialized
-			));
+            bool steamAvailable = IsInitialized;
 
-			// FIXME: This is stupid -flibit
-			startGamers.Add(new SignedInGamer(
-				SteamUser.GetSteamID(),
-				SteamFriends.GetPersonaName() + " (1)",
-				IsInitialized,
-				true,
-				PlayerIndex.Two
-			));
-			startGamers.Add(new SignedInGamer(
-				SteamUser.GetSteamID(),
-				SteamFriends.GetPersonaName() + " (2)",
-				IsInitialized,
-				true,
-				PlayerIndex.Three
-			));
-			startGamers.Add(new SignedInGamer(
-				SteamUser.GetSteamID(),
-				SteamFriends.GetPersonaName() + " (3)",
-				IsInitialized,
-				true,
-				PlayerIndex.Four
-			));
+            // Use the real Steam account when available.
+            // Otherwise, create an offline identity.
+            CSteamID steamID = steamAvailable
+                ? SteamUser.GetSteamID()
+                : new CSteamID(0);
 
-			Gamer.SignedInGamers = new SignedInGamerCollection(startGamers);
-			foreach (SignedInGamer gamer in Gamer.SignedInGamers)
-			{
-				SignedInGamer.OnSignIn(gamer);
-			}
-		}
+            string gamerName = steamAvailable
+                ? SteamFriends.GetPersonaName()
+                : "Player";
+
+            // Create up to four local gamers.
+            for (int i = 0; i < 4; i++)
+            {
+                PlayerIndex playerIndex = (PlayerIndex)i;
+
+                string playerName = i == 0
+                    ? gamerName
+                    : $"{gamerName} ({i})";
+
+                SignedInGamer gamer;
+
+                if (i == 0)
+                {
+                    gamer = new SignedInGamer(
+                        steamID,
+                        playerName,
+                        steamAvailable
+                    );
+                }
+                else
+                {
+                    gamer = new SignedInGamer(
+                        steamID,
+                        playerName,
+                        steamAvailable,
+                        true,
+                        playerIndex
+                    );
+                }
+
+                startGamers.Add(gamer);
+            }
+
+            Gamer.SignedInGamers = new SignedInGamerCollection(startGamers);
+
+            foreach (SignedInGamer gamer in Gamer.SignedInGamers)
+            {
+                SignedInGamer.OnSignIn(gamer);
+            }
+        }
 
 		public static void Update()
 		{
 			lock (steamUpdateMutex)
 			{
-				SteamAPI.RunCallbacks();
-			}
+                if (IsInitialized)
+                {
+                    SteamAPI.RunCallbacks();
+                }
+            }
 
 			// TODO: Guest hotplugging!
 		}
