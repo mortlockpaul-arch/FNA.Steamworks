@@ -5,22 +5,6 @@
     <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
-    <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
-    <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
-    <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
-    <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">WindowsDebug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
@@ -30,89 +14,9 @@
     <RootNamespace>Microsoft.Xna.Framework.Net</RootNamespace>
     <AssemblyName>FNA.Steamworks</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WindowsDebug|x86' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\WindowsDebug</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WindowsRelease|x86' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\WindowsRelease</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnixDebug|x86' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\UnixDebug</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnixRelease|x86' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\UnixRelease</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WindowsDebug|x64' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\WindowsDebug</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WindowsRelease|x64' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\WindowsRelease</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnixDebug|x64' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\UnixDebug</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnixRelease|x64' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\UnixRelease</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WindowsDebug|AnyCPU' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\WindowsDebug</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'WindowsRelease|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\WindowsRelease</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnixDebug|AnyCPU' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\UnixDebug</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnixRelease|AnyCPU' ">
-    <Optimize>true</Optimize>
-    <OutputPath>bin\UnixRelease</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+  <PropertyGroup>
+    <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
+    <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
@@ -124,8 +28,9 @@
     <ProjectReference Include="Steamworks.NET\Standalone\Steamworks.NET.csproj">
       <Project>{b3543600-587c-4fdc-994a-cb0bdc629a7e}</Project>
       <Name>Steamworks.NET</Name>
-      <SetPlatform>Platform=x64</SetPlatform>
       <SetConfiguration>Configuration=Windows</SetConfiguration>
+      <SetPlatform Condition="'$(Platform)' == 'x64'">Platform=x64</SetPlatform>
+      <SetPlatform Condition="'$(Platform)' == 'x86'">Platform=x86</SetPlatform>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
