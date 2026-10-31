@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'FNA.Steamworks.net9' Or '$(MSBuildProjectName)' == 'Steamworks.NET.net9'">
+    <BaseIntermediateOutputPath>obj\net9\$(Platform)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+  </PropertyGroup>
+</Project>

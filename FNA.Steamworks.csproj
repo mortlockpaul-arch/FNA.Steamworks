@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<PropertyGroup>
+<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+</PropertyGroup>
   <PropertyGroup>
     <BaseOutputPath Condition="'$(BaseOutputPath)' == ''">bin\</BaseOutputPath>
     <OutputPath Condition="'$(OutputPath)' == ''">bin\$(Platform)\$(Configuration)\</OutputPath>
@@ -117,10 +120,12 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\FNA\FNA.csproj">
-      <Project>{35253CE1-C864-4CD3-8249-4D1319748E8F}</Project>
-      <Name>FNA</Name>
-    </ProjectReference>
+<ProjectReference Include="..\FNA\FNA.csproj">
+  <Project>{35253CE1-C864-4CD3-8249-4D1319748E8F}</Project>
+  <Name>FNA</Name>
+  <SetConfiguration>Configuration=Release</SetConfiguration>
+  <SetPlatform>Platform=x64</SetPlatform>
+</ProjectReference>
     <ProjectReference Include="Steamworks.NET\Standalone\Steamworks.NET.csproj">
       <Project>{b3543600-587c-4fdc-994a-cb0bdc629a7e}</Project>
       <Name>Steamworks.NET</Name>

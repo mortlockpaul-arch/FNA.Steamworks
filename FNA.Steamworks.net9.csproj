@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AssemblyName>FNA.Steamworks</AssemblyName>
+    <RootNamespace>Microsoft.Xna.Framework.Net</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <Platforms>x86;x64;AnyCPU</Platforms>
+    <PlatformTarget Condition="'$(Platform)' == 'x86'">x86</PlatformTarget>
+    <PlatformTarget Condition="'$(Platform)' == 'x64'">x64</PlatformTarget>
+    <PlatformTarget Condition="'$(Platform)' == 'AnyCPU'">AnyCPU</PlatformTarget>
+    <OutputPath>bin\net9\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\net9\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <Configurations>Debug;Release</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FNA\FNA.csproj" AdditionalProperties="Configuration=Release" />
+    <ProjectReference Include="Steamworks.NET\Standalone\Steamworks.NET.net9.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\**\*.cs" Exclude="src\**\obj\**\*" />
+  </ItemGroup>
+</Project>

@@ -103,7 +103,8 @@ namespace Microsoft.Xna.Framework.GamerServices
 
             if (IsInitialized)
             {
-                SteamUserStats.RequestCurrentStats();
+                // SteamUserStats.RequestCurrentStats();
+                // Removed for compatibility with newer Steamworks.NET.
             }
             else
             {
