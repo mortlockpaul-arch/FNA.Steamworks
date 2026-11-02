@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- Legacy and SDK variants share source folders, but must not share NuGet assets. -->
+    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <MSBuildProjectExtensionsPath>$(BaseIntermediateOutputPath)</MSBuildProjectExtensionsPath>
+  </PropertyGroup>
+</Project>

@@ -101,11 +101,9 @@ namespace Microsoft.Xna.Framework.GamerServices
 			textInputDismissed = Callback<GamepadTextInputDismissed_t>.Create(Guide.OnTextInputDismissed);
 			lobbyJoinRequested = Callback<GameLobbyJoinRequested_t>.Create(Net.NetworkSession.OnInviteAccepted);
 
-            if (IsInitialized)
-            {
-                SteamUserStats.RequestCurrentStats();
-            }
-            else
+            // Current Steamworks versions synchronize local stats before the game starts.
+            // RequestCurrentStats was removed from the SDK and is no longer necessary.
+            if (!IsInitialized)
             {
                 Console.WriteLine(
                     "Steamworks unavailable. Skipping Steam user statistics."
