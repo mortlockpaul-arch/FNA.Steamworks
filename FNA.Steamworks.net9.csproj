@@ -21,6 +21,14 @@
     <ProjectReference Include="..\FNA\FNA.Core.csproj" />
     <ProjectReference Include="Steamworks.NET\Standalone\Steamworks.NET.net9.csproj" />
   </ItemGroup>
+  <PropertyGroup>
+    <_SteamApiDll Condition="'$(PlatformTarget)' == 'x86' or '$(RuntimeIdentifier)' == 'win-x86'">steam_api.dll</_SteamApiDll>
+    <_SteamApiDll Condition="'$(_SteamApiDll)' == ''">steam_api64.dll</_SteamApiDll>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Steamworks.NET/com.rlabrecque.steamworks.net/Plugins/$(_SteamApiDll)"
+          Link="$(_SteamApiDll)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="src\**\*.cs" Exclude="src\**\obj\**\*" />
   </ItemGroup>
